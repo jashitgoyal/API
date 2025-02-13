@@ -1,7 +1,4 @@
 const { v4: uuid } = require("uuid");
-const fs = require("fs");
-const fsPromises = require("fs").promises;
-const path = require("path");
 
 const date = new Date();
 const options = {
@@ -13,26 +10,17 @@ const options = {
   second: "numeric",
 };
 
-//? This was done to get myself familiar with fs module, you can remove it.
-const logEvents = async (message, logFileName) => {
+// Function to log events to the console instead of a file
+const logEvents = (message) => {
   const dateTime = new Intl.DateTimeFormat("en-GB", options).format(date);
-  const logItem = dateTime + "\t" + uuid() + "\t" + message + "\n";
+  const logItem = `${dateTime}\t${uuid()}\t${message}`;
 
-  try {
-    if (!fs.existsSync(path.join(__dirname, "..", "logs"))) {
-      await fsPromises.mkdir(path.join(__dirname, "..", "logs"));
-    }
-    await fsPromises.appendFile(
-      path.join(__dirname, "..", "logs", logFileName),
-      logItem
-    );
-  } catch (err) {
-    console.log(err);
-  }
+  console.log(logItem); // Print log message to console
 };
 
+// Express middleware logger
 const logger = (req, res, next) => {
-  logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`, "reqLog.log");
+  logEvents(`${req.method}\t${req.url}\t${req.headers.origin}`);
   console.log(`${req.method}\t${req.path}`);
   next();
 };
