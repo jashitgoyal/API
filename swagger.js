@@ -14,6 +14,10 @@ const swaggerOptions = {
       {
         url: "http://localhost:8080", // Change this to your API base URL
       },
+      {
+        url: "https://api-fs4e.onrender.com", // Replace with your actual Render URL
+        description: "Render deployed server",
+      },
     ],
   },
   apis: ["./routes/*.js"], // Path to your route files
@@ -24,7 +28,6 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
 const swaggerDocs = (app) => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  console.log("Swagger UI available at: http://localhost:8080/api-docs");
 };
 
 module.exports = swaggerDocs;
