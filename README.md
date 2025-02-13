@@ -154,6 +154,11 @@ Swagger documentation is available. Run the project and visit:
 ```
 http://localhost:8080/api-docs
 ```
+Direct Live Link For the API
+
+```
+https://api-fs4e.onrender.com/api-docs/
+```
 
 ## Contributing
 
